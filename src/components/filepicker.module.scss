@@ -2,10 +2,12 @@
 .file-picker {
   background-color: var(--color-file-picker);
 
-  width: 250px;
-
   --gap: 0.5rem;
+  --container-width: 250px;
+  --width: calc(var(--container-width) - var(--gap) * 2);
   --height: calc(2rem);
+
+  width: var(--container-width);
 
   >ul {
     width: 100%;
@@ -31,5 +33,16 @@
     background-color: rgba(255,255,255,0.06);
     border-radius: 10px;
     padding: 0.5rem;
+  }
+}
+
+:global(.angle-inverted) .file-picker {
+  >ul {
+    /* justify-content: end; */
+    align-items: end;
+  }
+
+  >ul>li {
+    transform-origin: bottom right;
   }
 }

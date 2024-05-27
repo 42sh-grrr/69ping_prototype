@@ -11,11 +11,20 @@ const root = createRoot(dom_root);
 root.render(<App />);
 
 (window as any).customAngle = null;
+// (window as any).customAngle = -45;
 
 const frame = (t: number) => {
   t /= 1000;
-  const angle = (window as any).customAngle ?? ((Math.sin(t) + 1) / 2) * 45;
+  const angle = (window as any).customAngle ?? Math.sin(t) * 45;
   document.documentElement.style.setProperty('--angle', `${angle}deg`);
+
+  if (angle > 0) {
+    document.body.classList.remove("angle-inverted");
+  }
+  else {
+    document.body.classList.add("angle-inverted");
+  }
+  
   requestAnimationFrame(frame);
 };
 requestAnimationFrame(frame);
