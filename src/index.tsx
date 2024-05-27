@@ -10,9 +10,12 @@ const root = createRoot(dom_root);
 
 root.render(<App />);
 
+(window as any).customAngle = null;
+
 const frame = (t: number) => {
   t /= 1000;
-  document.documentElement.style.setProperty('--angle', `${((Math.sin(t) + 1) / 2) * 45}deg`);
+  const angle = (window as any).customAngle ?? ((Math.sin(t) + 1) / 2) * 45;
+  document.documentElement.style.setProperty('--angle', `${angle}deg`);
   requestAnimationFrame(frame);
 };
 requestAnimationFrame(frame);
