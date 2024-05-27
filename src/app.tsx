@@ -6,7 +6,5 @@ import { FilePicker } from "./components/filepicker";
 export function App() {
   return <div className={classes.app}>
     <FilePicker />
-    <div className={classes.grid}>
-    </div>
   </div>;
 }
