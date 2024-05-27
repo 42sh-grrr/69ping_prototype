@@ -6,6 +6,10 @@
   --angle: 60deg;
 }
 
+body.counter-rotate {
+  transform: rotate(calc(-1 * var(--angle))) scale(0.5);
+}
+
 body, html {
   padding: 0;
   margin: 0;
