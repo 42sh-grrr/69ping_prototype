@@ -1,0 +1,34 @@
+
+.file-picker {
+  background-color: var(--color-file-picker);
+
+  width: 250px;
+
+  --gap: 0.5rem;
+
+  >ul {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--gap) / cos(var(--angle)));
+    padding: 1rem;
+  }
+
+  >ul>li {
+    --height: calc(0.5rem + 1rem);
+    --dl: calc(var(--height) * tan(var(--angle)));
+    height: 30px;
+    width: calc(100% / cos(var(--angle)) - var(--dl));
+
+    display: flex;
+    align-items: start;
+    justify-content: start;
+
+    transform: rotate(var(--angle));
+    transform-origin: bottom left;
+    background-color: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 0.5rem;
+  }
+}
