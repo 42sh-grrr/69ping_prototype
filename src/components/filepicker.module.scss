@@ -2,12 +2,10 @@
 .file-picker {
   background-color: var(--color-file-picker);
 
-  --gap: 0.5rem;
-  --container-width: 250px;
-  --width: calc(var(--container-width) - var(--gap) * 2);
-  --height: calc(2rem);
+  width: 250px;
 
-  width: var(--container-width);
+  --rotcont-gap: 0.5rem;
+  --rotcont-height: calc(2rem);
 
   >ul {
     width: 100%;
@@ -16,6 +14,8 @@
   }
 
   >ul>li {
+    width: 100%;
+
     display: flex;
     align-items: start;
     justify-content: start;
@@ -23,17 +23,5 @@
     background-color: rgba(255,255,255,0.06);
     border-radius: 10px;
     padding: 0.5rem;
-  }
-}
-
-:global(.angle-inverted) .file-picker {
-  >ul {
-    /* justify-content: end; */
-    align-items: end;
-  }
-
-  >ul>li {
-    transform-origin: bottom right;
-    --dl: calc(var(--height) * tan(-1 * var(--angle)));
   }
 }

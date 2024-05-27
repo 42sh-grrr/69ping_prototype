@@ -4,6 +4,9 @@
   position: relative;
 
   .the-code {
+    --rotcont-gap: 0.5rem;
+    --rotcont-height: calc(2rem);
+
     font-family: monospace;
 
     padding: 0.5rem;

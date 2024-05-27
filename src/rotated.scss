@@ -2,30 +2,35 @@
 /*
 to-set:
   // gap between elements
-  --gap: 0.5rem;
-  // width of the container
-  --container-width: 250px;
-  // width of each element
-  --width: calc(var(--container-width) - var(--gap) * 2);
+  --rotcont-gap: 0.5rem;
   // height of each element
-  --height: calc(2rem);
+  --rotcont-height: calc(2rem);
 */
 .rotated-container {
   display: block;
-  width: var(--container-width);
 
   display: flex;
   flex-direction: column;
 
-  --hc: calc((var(--gap) + var(--height)) / cos(var(--angle)));
-  gap: calc(var(--hc) - var(--height));
+  --rotcont-hc: calc((var(--rotcont-gap) + var(--rotcont-height)) / cos(var(--angle)));
+  gap: calc(var(--rotcont-hc) - var(--rotcont-height));
 
   >.rotated-element {
-    --dl: calc(var(--height) * tan(var(--angle)));
-    height: var(--height);
-    width: calc(100% / cos(var(--angle)) - var(--dl));
+    --rotcont-dl: calc(var(--rotcont-height) * tan(var(--angle)));
+    height: var(--rotcont-height);
+    width: calc(100% / cos(var(--angle)) - var(--rotcont-dl));
 
     transform: rotate(var(--angle));
     transform-origin: bottom left;
+  }
+}
+
+.angle-inverted .rotated-container {
+  /* justify-content: end; */
+  align-items: end;
+
+  >.rotated-element {
+    transform-origin: bottom right;
+    --rotcont-dl: calc(var(--rotcont-height) * tan(-1 * var(--angle)));
   }
 }

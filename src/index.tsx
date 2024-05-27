@@ -15,7 +15,7 @@ root.render(<App />);
 
 const frame = (t: number) => {
   t /= 1000;
-  const angle = (window as any).customAngle ?? Math.sin(t) * 45;
+  const angle = (window as any).customAngle ?? Math.sin(t / 10) * 45;
   document.documentElement.style.setProperty('--angle', `${angle}deg`);
 
   if (angle > 0) {

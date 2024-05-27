@@ -7,9 +7,9 @@ export type Props = React.PropsWithChildren & {
 
 export function CodeEditor(props: Props) {
   return <div className={classes["code-editor"]}>
-    <div className={classes["the-code"]}>
+    <div className={classes["the-code"] + " rotated-container"}>
       {props.code.split("\n")
-        .map((line, i) => <pre key={i} className={classes["line"]}>{line}</pre>)}
+        .map((line, i) => <pre key={i} className={classes["line"] + " rotated-element"}>{line}</pre>)}
     </div>
   </div>;
 }
