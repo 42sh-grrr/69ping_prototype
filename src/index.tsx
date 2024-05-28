@@ -25,7 +25,10 @@ const frame = (t: number) => {
   const prop = Math.min(Math.max(dt * 10, 0), 1);
   currentAngle = (1 - prop) * currentAngle + prop * targetAngle;
 
-  document.documentElement.style.setProperty('--angle', `${currentAngle}deg`);
+  // Round to 3 digits after the . because the currentAngle may continue
+  // to change infinidismally and that's annoying
+  const usedAngle = Math.round(currentAngle * 1_000) / 1_000;
+  document.documentElement.style.setProperty('--angle', `${usedAngle}deg`);
 
   if (currentAngle > 0) {
     document.body.classList.remove("angle-inverted");
