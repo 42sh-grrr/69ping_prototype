@@ -2,9 +2,10 @@
   "compilerOptions": {
     "lib": ["ESNext", "dom"],
     "module": "esnext",
+    "moduleResolution": "node",
     "target": "esnext",
     "strict": true,
-    "emit": false,
+    "noEmit": true,
     "noImplicitOverride": true,
     "jsx": "react"
   },
