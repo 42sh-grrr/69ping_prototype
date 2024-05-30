@@ -26,8 +26,8 @@ const frame = (t: number) => {
   targetAngle = customAngle ?? Math.sin(t) * 45;
 
   const dt = t - oldT;
-  const prop = Math.min(Math.max(dt * 10, 0), 1);
-  currentAngle = (1 - prop) * currentAngle + prop * targetAngle;
+  const half_life = 0.1;
+  currentAngle = targetAngle + (currentAngle-targetAngle) * (2 ** (-dt / half_life));
 
   // Round to 3 digits after the . because the currentAngle may continue
   // to change infinidismally and that's annoying
