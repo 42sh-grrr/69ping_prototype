@@ -3,6 +3,7 @@ import * as classes from "./app.module.scss";
 
 import { FilePicker } from "./components/filepicker";
 import { CodeEditor } from "./components/code_editor";
+import { ToolBar } from "./components/toolbar";
 
 export function App() {
   const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
@@ -28,7 +29,10 @@ export function App() {
   }, []);
 
   return <div className={classes.app}>
-    <FilePicker />
-    <CodeEditor code={code} onInput={onInput} />
+    <ToolBar />
+    <div className={classes.inner}>
+      <FilePicker />
+      <CodeEditor code={code} onInput={onInput} />
+    </div>
   </div>;
 }

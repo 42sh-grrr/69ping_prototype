@@ -10,18 +10,25 @@
   >ul {
     width: 100%;
 
-    padding: 1rem;
+    padding: 0.5rem 0rem;
   }
 
   >ul>li {
     width: 100%;
+
+    cursor: pointer;
 
     display: flex;
     align-items: start;
     justify-content: start;
 
     background-color: rgba(255,255,255,0.06);
-    border-radius: 10px;
+    /* border-radius: var(--border-radius); */
     padding: 0.5rem;
+    transition: background-color 100ms;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
   }
 }
