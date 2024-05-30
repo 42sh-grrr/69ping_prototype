@@ -14,8 +14,8 @@ const loaded = parseInt(localStorage.getItem("customAngle") ?? "nan");
 (window as any).customAngle = isNaN(loaded) ? null : loaded;
 // (window as any).customAngle = -45;
 
-let targetAngle = 0;
-let currentAngle = 0;
+let targetAngle = loaded;
+let currentAngle = loaded;
 
 let oldT = 0;
 const frame = (t: number) => {
