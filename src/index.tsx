@@ -10,7 +10,8 @@ const root = createRoot(dom_root);
 
 root.render(<App />);
 
-(window as any).customAngle = null;
+const loaded = parseInt(localStorage.getItem("customAngle") ?? "nan");
+(window as any).customAngle = isNaN(loaded) ? null : loaded;
 // (window as any).customAngle = -45;
 
 let targetAngle = 0;
@@ -19,7 +20,10 @@ let currentAngle = 0;
 let oldT = 0;
 const frame = (t: number) => {
   t /= 1000;
-  targetAngle = (window as any).customAngle ?? Math.sin(t) * 45;
+  const customAngle = (window as any).customAngle;
+  if (customAngle !== null)
+    localStorage.setItem("customAngle", customAngle.toString());
+  targetAngle = customAngle ?? Math.sin(t) * 45;
 
   const dt = t - oldT;
   const prop = Math.min(Math.max(dt * 10, 0), 1);

@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext", "dom"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "target": "esnext",
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+
     "strict": true,
     "noEmit": true,
     "noImplicitOverride": true,

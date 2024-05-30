@@ -5,23 +5,30 @@ import { FilePicker } from "./components/filepicker";
 import { CodeEditor } from "./components/code_editor";
 
 export function App() {
-  const [code, setCode] = React.useState("");
+  const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
 
   React.useEffect(() => {
-    const controller = new AbortController();
-    fetch(`https://raw.githubusercontent.com/koalaman/shellcheck/master/shellcheck.hs`, {
-      signal: controller.signal,
-    }).then(resp => resp.text()).then(code => {
-      setCode(code);
-    });
+    if (code === null) {
+      const controller = new AbortController();
+      fetch(`https://gist.githubusercontent.com/saml/1252517/raw/c5117b197f9da41b9b50f56d4bf02ffa78e406c3/HelloWorldHttp.hs`, {
+        signal: controller.signal,
+      }).then(resp => resp.text()).then(code => {
+        localStorage.setItem("code", code);
+        setCode(code);
+      });
 
-    return () => {
-      controller.abort();
-    };
+      return () => {
+        controller.abort();
+      };
+    }
+  }, [code]);
+
+  const onInput = React.useCallback((newCode: string) => {
+    localStorage.setItem("code", newCode);
   }, []);
 
   return <div className={classes.app}>
     <FilePicker />
-    <CodeEditor code={code} />
+    <CodeEditor code={code} onInput={onInput} />
   </div>;
 }
