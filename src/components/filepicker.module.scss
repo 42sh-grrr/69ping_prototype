@@ -4,13 +4,13 @@
 
   width: 250px;
 
-  --rotcont-gap: 0.5rem;
-  --rotcont-height: calc(2rem);
+  --rotcont-gap: 0rem;
+  --rotcont-height: calc(1.5rem);
 
   >ul {
     width: 100%;
 
-    padding: 0.5rem 0rem;
+    padding: 0.5rem;
   }
 
   >ul>li {
@@ -22,10 +22,10 @@
     align-items: start;
     justify-content: start;
 
-    background-color: rgba(255,255,255,0.06);
-    /* border-radius: var(--border-radius); */
-    padding: 0.5rem;
+    background-color: rgba(255,255,255,0);
     transition: background-color 100ms;
+
+    padding: 0.25rem;
 
     &:hover {
       background-color: rgba(255,255,255,0.1);
