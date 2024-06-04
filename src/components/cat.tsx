@@ -7,6 +7,7 @@ const LINKS = [
   "https://hfax.fr/f/ZTfx.wav",
   "https://hfax.fr/f/UBRV.wav",
   "https://hfax.fr/f/gHJF.wav",
+  "https://hfax.fr/f/frzX.wav",
 ]
 
 export function Cat() {
