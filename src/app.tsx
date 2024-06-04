@@ -4,6 +4,7 @@ import * as classes from "./app.module.scss";
 import { FilePicker } from "./components/filepicker";
 import { CodeEditor } from "./components/code_editor";
 import { ToolBar } from "./components/toolbar";
+import { Cat } from "./components/cat";
 
 export function App() {
   const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
@@ -32,7 +33,15 @@ export function App() {
     <ToolBar />
     <div className={classes.inner}>
       <FilePicker />
-      <CodeEditor code={code} onInput={onInput} />
+      <div className={classes.inner2}>
+        <CodeEditor code={code} onInput={onInput} />
+        <div className={classes.inner3}>
+          <div className={classes.terminal}></div>
+          <div className={classes.cat}>
+            <Cat />
+          </div>
+        </div>
+      </div>
     </div>
   </div>;
 }
