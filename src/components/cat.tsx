@@ -1,5 +1,14 @@
 import * as React from "react";
 
+const LINKS = [
+  "https://hfax.fr/f/bYjq.wav",
+  "https://hfax.fr/f/jhGc.wav",
+  "https://hfax.fr/f/YVZK.wav",
+  "https://hfax.fr/f/ZTfx.wav",
+  "https://hfax.fr/f/UBRV.wav",
+  "https://hfax.fr/f/gHJF.wav",
+]
+
 export function Cat() {
   const [cat, setCat] = React.useState(null as string | null);
 
@@ -15,7 +24,7 @@ export function Cat() {
   }, []);
 
   const playSound = React.useCallback(() => {
-    const audio = new Audio('https://hfax.fr/f/jhGc.wav');
+    const audio = new Audio(LINKS[Math.floor(Math.random() * LINKS.length)]);
     audio.play();
   }, []);
 
