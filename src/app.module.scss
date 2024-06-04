@@ -25,17 +25,12 @@
 
     >* {
       flex-grow: 1;
-      background-color: red;
-    }
-    >*:nth-child(1) {
-      flex-grow: 1;
-      background-color: green;
     }
   }
 }
 
 .terminal {
-  
+      background-color: red;
 }
 
 .cat {
