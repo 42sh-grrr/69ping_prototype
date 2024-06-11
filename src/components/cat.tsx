@@ -63,12 +63,12 @@ export function Cat() {
   }
   else {
     in_ = <>
-      <img className={classes.back} src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />
-      <img className={classes.front} src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />
+      <img className={classes.back} src={cat ?? ""} />
+      <img className={classes.front} src={cat ?? ""} onLoad={playSound}/>
     </>;
   }
 
-  return <div className={classes.container}>
+  return <div className={classes.container} onClick={() => fetchNewImage()}>
     {in_}
   </div>;
 }
