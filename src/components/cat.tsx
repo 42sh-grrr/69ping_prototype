@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as classes from "./cat.module.scss";
 
 const LINKS = [
   "https://hfax.fr/f/bYjq.wav",
@@ -56,10 +57,19 @@ export function Cat() {
     fetched = true;
   }, []);
 
+  let in_;
   if (cat === null) {
-    return <div>Loading...</div>
+    in_ = <div className={classes.loading}>Loading...</div>;
+  }
+  else {
+    in_ = <>
+      <img className={classes.back} src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />
+      <img className={classes.front} src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />
+    </>;
   }
 
-  return <img src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />;
+  return <div className={classes.container}>
+    {in_}
+  </div>;
 }
 
