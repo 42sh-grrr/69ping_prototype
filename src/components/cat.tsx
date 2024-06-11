@@ -13,7 +13,10 @@ const LINKS = [
 export function Cat() {
   const [cat, setCat] = React.useState(null as string | null);
 
-  const fetchNewImage = React.useCallback(async () => {
+  const fetchNewImage = React.useCallback(async (force: boolean = false) => {
+    if (!force && cat === null)
+      return;
+    setCat(null);
     const response = await fetch("https://api.thecatapi.com/v1/images/search")
     if (!response.ok) {
       alert("error fetching cat");
@@ -21,18 +24,42 @@ export function Cat() {
     }
     const body = (await response.json())[0];
     console.log(body);
-    setCat(body.url);
-  }, []);
+
+    const img = document.createElement("link");
+    console.log(img);
+
+    img.onload = () => {
+      setCat(body.url);
+      img.remove();
+    };
+
+    img.rel = "prefetch";
+    img.href = body.url;
+    document.head.appendChild(img);
+  }, [cat]);
 
   const playSound = React.useCallback(() => {
-    const audio = new Audio(LINKS[Math.floor(Math.random() * LINKS.length)]);
-    audio.play();
+    try {
+      const audio = new Audio(LINKS[Math.floor(Math.random() * LINKS.length)]);
+      audio.play();
+    }
+    catch
+    {
+      console.log("Could not play sound");
+    }
   }, []);
 
+  let fetched = false;
   React.useEffect(() => {
-    fetchNewImage();
+    if (cat === null && fetched === false)
+      fetchNewImage(true);
+    fetched = true;
   }, []);
 
-  return <img src={cat ?? ""} onClick={fetchNewImage} onLoad={playSound} />;
+  if (cat === null) {
+    return <div>Loading...</div>
+  }
+
+  return <img src={cat ?? ""} onClick={() => fetchNewImage()} onLoad={playSound} />;
 }
 
