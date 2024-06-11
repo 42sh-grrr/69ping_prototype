@@ -35,8 +35,16 @@
       span.letter {
         display: inline-block;
         transform: rotate(var(--angle)) translateX(calc(cos(var(--angle)) * 3px));
-        width: calc(1ch + sin(var(--angle)) * 0.5ch);
+        width: calc(1ch + sin(var(--angle)) * 1ch);
       }
+    }
+  }
+}
+
+:global(.angle-inverted) {
+  .tool-bar {
+    .letter {
+      width: calc(1ch - sin(var(--angle)) * 1ch);
     }
   }
 }
