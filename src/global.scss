@@ -57,6 +57,17 @@ pre {
   font-size: inherit;
 }
 
+button {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+}
+
 * {
   box-sizing: border-box;
 }

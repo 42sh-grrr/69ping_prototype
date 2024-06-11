@@ -1,9 +1,13 @@
 
 .tool-bar {
+  display: inline-block;
+
   background-color: var(--color-tool-bar);
 
-  padding-left: 0.6rem;
-  padding-right: 0.6rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  height: 2em;
 
   >ul {
     height: 100%;
@@ -11,20 +15,27 @@
     display: flex;
     flex-direction: row;
     justify-content: start;
-    align-items: center;
+    align-items: stretch;
 
     >li {
       cursor: pointer;
       padding: 0.3rem 0.5rem;
       transition: background-color 100ms;
       background-color: rgba(255,255,255,0);
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
       &:hover {
         background-color: rgba(255,255,255,0.1);
       }
 
-      >span {
+      span.letter {
         display: inline-block;
-        transform: rotate(var(--angle));
+        transform: rotate(var(--angle)) translateX(calc(cos(var(--angle)) * 3px));
+        width: calc(1ch + sin(var(--angle)) * 0.5ch);
       }
     }
   }
