@@ -1,0 +1,22 @@
+
+.container {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0,0,0,0.5);
+}
+
+.thing {
+  width: calc(min(800px, 100vw));
+  height: calc(min(500px, 100vh));
+
+  background-color: var(--color-background);
+
+  border-radius: 20px;
+
+  padding: 20px;
+}

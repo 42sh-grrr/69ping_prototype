@@ -15,6 +15,7 @@
     "process": "^0.11.10"
   },
   "dependencies": {
+    "jotai": "^2.8.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }

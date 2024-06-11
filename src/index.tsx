@@ -1,6 +1,7 @@
 import { App } from "./app";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "jotai";
 
 const dom_root = document.getElementById("root");
 if (!dom_root) {
@@ -8,10 +9,12 @@ if (!dom_root) {
 }
 const root = createRoot(dom_root);
 
-root.render(<App />);
+root.render(<Provider><App /></Provider>);
+
+const DEFAULT_ANGLE = 45;
 
 const loaded = parseInt(localStorage.getItem("customAngle") ?? "nan");
-(window as any).customAngle = isNaN(loaded) ? null : loaded;
+(window as any).customAngle = isNaN(loaded) ? DEFAULT_ANGLE : loaded;
 // (window as any).customAngle = -45;
 
 let targetAngle = loaded;

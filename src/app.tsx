@@ -5,6 +5,7 @@ import { FilePicker } from "./components/filepicker";
 import { CodeEditor } from "./components/code_editor";
 import { ToolBar } from "./components/toolbar";
 import { Cat } from "./components/cat";
+import { Settings } from "./components/settings";
 
 export function App() {
   const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
@@ -29,19 +30,22 @@ export function App() {
     localStorage.setItem("code", newCode);
   }, []);
 
-  return <div className={classes.app}>
-    <ToolBar />
-    <div className={classes.inner}>
-      <FilePicker />
-      <div className={classes.inner2}>
-        <CodeEditor code={code} onInput={onInput} />
-        <div className={classes.inner3}>
-          <div className={classes.terminal}></div>
-          <div className={classes.cat}>
-            <Cat />
+  return <>
+    <div className={classes.app}>
+      <ToolBar />
+      <div className={classes.inner}>
+        <FilePicker />
+        <div className={classes.inner2}>
+          <CodeEditor code={code} onInput={onInput} />
+          <div className={classes.inner3}>
+            <div className={classes.terminal}></div>
+            <div className={classes.cat}>
+              <Cat />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>;
+    <Settings/>
+  </>;
 }
