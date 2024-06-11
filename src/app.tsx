@@ -39,7 +39,7 @@ export function App() {
           <CodeEditor code={code} onInput={onInput} />
           <div className={classes.inner3}>
             <div className={classes.terminal}></div>
-            <div className={classes.cat}>
+            <div>
               <Cat />
             </div>
           </div>
