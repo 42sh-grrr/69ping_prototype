@@ -1,11 +1,24 @@
 @import "./rotated.scss";
 
+@font-face {
+  font-family: "comic_sans";
+  src: url("./assets/comic_sans_ms.ttf");
+}
+
+@font-face {
+  font-family: "comic_sans_monospace";
+  src: url("./assets/ComicMono.ttf");
+}
+
 :root {
   --color-background: #111111;
   --color-file-picker: #222222;
   --color-tool-bar: #333333;
   --border-radius: 5px;
   --angle: 60deg;
+
+  --font-family: comic_sans;
+  --font-family-monospace: comic_sans_monospace;
 }
 
 body.counter-rotate {
@@ -21,7 +34,7 @@ body, html {
 body {
   background-color: var(--color-background);
   color: white;
-  font-family: sans-serif;
+  font-family: var(--font-family);
 }
 
 #root {
