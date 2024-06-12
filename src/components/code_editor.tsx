@@ -70,9 +70,12 @@ export function CodeEditor(props: Props) {
         newEl = lineEl;
 
       const new_html = escapeHtml(lineText)
-        .replace(/(\=|\$)/g, "<span style='color: red;'>$1</span>")
-        .replace(/(import|module|let|where|as|do)/g, "<span style='color: yellow;'>$1</span>")
-        .replace(/(\(|\)|\{|\})/g, "<span style='color: #ADDFFF;'>$1</span>")
+        .replaceAll(/(--.*)$/g, "<span style='color: gray;'>$1</span>")
+        .replaceAll(/([0-9]+(?:\.[0-9]+)?)/g, "<span style='color: cyan;'>$1</span>")
+        .replaceAll(/( |\t|^)(\=|\$)( |\t|$)/g, "$1<span style='color: red;'>$2</span>$3")
+        .replaceAll(/( |\t|^)(import|module|let|where|as|do)( |\t|$)/g, "$1<span style='color: yellow;'>$2</span>$3")
+        .replaceAll(/( |\t|^)(\(|\)|\{|\})( |\t|$)/g, "$1<span style='color: #ADDFFF;'>$2</span>$3")
+        .replaceAll(/("(?:\\.|[^"\\])*")/g, "<span style='color: lime;'>$1</span>")
       ;
       if (new_html === newEl.innerHTML)
         return;
