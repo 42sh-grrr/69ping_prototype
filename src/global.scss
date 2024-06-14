@@ -37,6 +37,13 @@ body {
   color: white;
   font-family: var(--font-family);
   line-height: 1em;
+
+  transition: transform 200ms ease-in-out;
+  transform: scale(1);
+}
+
+body.devmode {
+  transform: scale(0.5);
 }
 
 #root {

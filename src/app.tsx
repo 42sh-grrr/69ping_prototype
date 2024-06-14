@@ -6,9 +6,26 @@ import { CodeEditor } from "./components/code_editor";
 import { ToolBar } from "./components/toolbar";
 import { Cat } from "./components/cat";
 import { Settings } from "./components/settings";
+import { atom, useAtom } from "jotai";
+
+const devMode = atom(localStorage.getItem("devmode") === "true");
+
+export function useDevMode(): [boolean, (val: boolean) => void] {
+  return useAtom(devMode);
+}
 
 export function App() {
+  const [devMode, setDevMode] = useDevMode();
   const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
+
+  React.useEffect(() => {
+    localStorage.setItem("devmode", ""+devMode);
+
+    if (devMode)
+      document.body.classList.add("devmode");
+    else
+      document.body.classList.remove("devmode");
+  }, [devMode]);
 
   React.useEffect(() => {
     if (code === null) {
