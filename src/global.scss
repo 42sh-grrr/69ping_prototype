@@ -15,6 +15,7 @@
   --color-tool-bar: #333333;
   --border-radius: 5px;
   --angle: 60deg;
+  --angle-2: calc(min(mod(var(--angle), 180deg), mod(-1 * var(--angle), 180deg)));
 
   --font-family: comic_sans;
   --font-family-monospace: comic_sans_monospace;

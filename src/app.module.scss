@@ -50,13 +50,6 @@
   }
 }
 
-.app {
-  --angle-2: var(--angle);
-}
-:global(.angle-inverted) .app {
-  --angle-2: calc(var(--angle) * -1);
-}
-
 .terminal {
   background-color: black;
 }
