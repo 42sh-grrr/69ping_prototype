@@ -15,6 +15,9 @@ export function useDevMode(): [boolean, (val: boolean) => void] {
 }
 
 export function App() {
+  const appRef = React.useRef<HTMLDivElement|null>(null);
+  const windowedRef = React.useRef<HTMLDivElement|null>(null);
+
   const [devMode, setDevMode] = useDevMode();
   const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
 
@@ -47,8 +50,25 @@ export function App() {
     localStorage.setItem("code", newCode);
   }, []);
 
+  React.useEffect(() => {
+    const appEl = appRef.current;
+    const windowedEl = windowedRef.current;
+    if (!appEl || !windowedEl)
+      return;
+
+    const updateSizes = () => {
+      appEl.style.setProperty("--screen-width", `${windowedEl.clientWidth}px`);
+      appEl.style.setProperty("--screen-height", `calc(${windowedEl.clientHeight}px - var(--toolbar-height))`);
+    };
+    const resize_observer = new ResizeObserver(updateSizes);
+    updateSizes();
+    resize_observer.observe(windowedEl);
+
+    return () => resize_observer.disconnect();
+  }, [appRef.current, windowedRef.current]);
+
   return <>
-    <div className={classes.app}>
+    <div className={classes.app} ref={appRef}>
       <FilePicker />
       <div className={classes.inner2}>
         <CodeEditor code={code} onInput={onInput} />
@@ -60,7 +80,7 @@ export function App() {
         </div>
       </div>
     </div>
-    <div className={classes.windowed}>
+    <div className={classes.windowed} ref={windowedRef}>
       <ToolBar />
     </div>
     <Settings/>
