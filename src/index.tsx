@@ -36,7 +36,7 @@ const frame = (t: number) => {
 
   // Round to 3 digits after the . because the currentAngle may continue
   // to change infinidismally and that's annoying
-  const usedAngle = Math.round(currentAngle * 1_000) / 1_000;
+  const usedAngle = Math.round(currentAngle * 100_000) / 100_000;
 
   const newProp = `${usedAngle}deg`;
   if (document.documentElement.style.getPropertyValue("--angle") !== newProp)
