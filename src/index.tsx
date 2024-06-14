@@ -13,12 +13,12 @@ root.render(<Provider><App /></Provider>);
 
 const DEFAULT_ANGLE = 45;
 
-const loaded = parseInt(localStorage.getItem("customAngle") ?? "nan");
-(window as any).customAngle = isNaN(loaded) ? DEFAULT_ANGLE : loaded;
-// (window as any).customAngle = -45;
+const storedCustomAngle = localStorage.getItem("customAngle") ?? null;
+const loaded = storedCustomAngle === null ? DEFAULT_ANGLE : parseInt(storedCustomAngle);
+(window as any).customAngle = loaded;
 
-let targetAngle = loaded;
-let currentAngle = loaded;
+let targetAngle = loaded ?? 0;
+let currentAngle = loaded ?? 0;
 
 let oldT = 0;
 const frame = (t: number) => {
@@ -26,6 +26,8 @@ const frame = (t: number) => {
   const customAngle = (window as any).customAngle;
   if (customAngle !== null)
     localStorage.setItem("customAngle", customAngle.toString());
+  else
+    localStorage.removeItem("customAngle");
   targetAngle = customAngle ?? Math.sin(t) * 45;
 
   const dt = t - oldT;
