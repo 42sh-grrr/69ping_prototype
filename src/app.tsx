@@ -32,19 +32,19 @@ export function App() {
 
   return <>
     <div className={classes.app}>
-      <ToolBar />
-      <div className={classes.inner}>
-        <FilePicker />
-        <div className={classes.inner2}>
-          <CodeEditor code={code} onInput={onInput} />
-          <div className={classes.inner3}>
-            <div className={classes.terminal}></div>
-            <div>
-              <Cat />
-            </div>
+      <FilePicker />
+      <div className={classes.inner2}>
+        <CodeEditor code={code} onInput={onInput} />
+        <div className={classes.inner3}>
+          <div className={classes.terminal}></div>
+          <div>
+            <Cat />
           </div>
         </div>
       </div>
+    </div>
+    <div className={classes.windowed}>
+      <ToolBar />
     </div>
     <Settings/>
   </>;

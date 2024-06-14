@@ -62,7 +62,7 @@ export function CodeEditor(props: Props) {
 
       if (lineEl === null || !(lineEl instanceof HTMLPreElement)) {
         newEl = document.createElement("pre") as HTMLPreElement;
-        newEl.classList.add("rotated-element", classes["line"], `line-${i}`);
+        newEl.classList.add(classes["line"], `line-${i}`);
         newEl.setAttribute("data-line-number", i.toString());
         el.appendChild(newEl);
       }
@@ -103,7 +103,7 @@ export function CodeEditor(props: Props) {
       return;
 
     el.innerHTML = props.code.split("\n")
-      .map(code => `<pre class='rotated-element ${classes["line"]}'>${escapeHtml(code)}</pre>`)
+      .map(code => `<pre class='${classes["line"]}'>${escapeHtml(code)}</pre>`)
       .join("");
   }, [props.code]);
 
@@ -111,11 +111,11 @@ export function CodeEditor(props: Props) {
     <div className={classes["code-container"]}>
       <div
         ref={visualCodeRef}
-        className={`${classes["the-visual-code"]} rotated-container`}
+        className={`${classes["the-visual-code"]}`}
       />
       <div
         ref={codeRef}
-        className={`${classes["the-code"]} rotated-container`}
+        className={`${classes["the-code"]}`}
         contentEditable={true}
         spellCheck={false}
       />

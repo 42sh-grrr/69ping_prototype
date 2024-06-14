@@ -1,4 +1,3 @@
-@import "./rotated.scss";
 
 @font-face {
   font-family: "comic_sans";
@@ -19,6 +18,8 @@
 
   --font-family: comic_sans;
   --font-family-monospace: comic_sans_monospace;
+
+  --toolbar-height: 2em;
 }
 
 body.counter-rotate {

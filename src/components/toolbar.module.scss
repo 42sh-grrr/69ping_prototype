@@ -7,7 +7,7 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 
-  height: 2em;
+  height: var(--toolbar-height);
 
   >ul {
     height: 100%;

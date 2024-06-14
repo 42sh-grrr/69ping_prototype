@@ -10,9 +10,6 @@
     overflow-x: auto;
 
     >* {
-      --rotcont-gap: 0rem;
-      --rotcont-height: calc(1em);
-
       font-family: var(--font-family-monospace);
       padding: 0.5rem;
       position: absolute;
@@ -47,5 +44,6 @@
   .line {
     display: block;
     font-family: inherit;
+    height: 1em;
   }
 }
