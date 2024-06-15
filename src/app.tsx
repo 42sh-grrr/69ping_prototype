@@ -7,6 +7,7 @@ import { ToolBar } from "./components/toolbar";
 import { Cat } from "./components/cat";
 import { Settings } from "./components/settings";
 import { atom, useAtom } from "jotai";
+import { Terminal } from "./components/terminal";
 
 const devMode = atom(localStorage.getItem("devmode") === "true");
 
@@ -73,7 +74,9 @@ export function App() {
       <div className={classes.inner2}>
         <CodeEditor code={code} onInput={onInput} />
         <div className={classes.inner3}>
-          <div className={classes.terminal}></div>
+          <div className={classes.terminal}>
+            <Terminal />
+          </div>
           <div>
             <Cat />
           </div>

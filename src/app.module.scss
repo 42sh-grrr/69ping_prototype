@@ -23,8 +23,11 @@
   transform: translateY(var(--toolbar-height)) rotate(var(--angle));
 
   position: absolute;
+  --ea: calc(var(--screen-height) * cos(var(--angle-2)));
+  --ed: calc(var(--screen-width) * sin(var(--angle-2)));
+
   --target-width: calc(var(--screen-width) * cos(var(--angle-2)) + var(--screen-height) * sin(var(--angle-2)));
-  --target-height: calc(var(--screen-width) * sin(var(--angle-2)) + var(--screen-height) * cos(var(--angle-2)));
+  --target-height: calc(var(--ed) + var(--ea));
 
   --px: calc((var(--screen-width) - var(--target-width)) / 2);
   --py: calc((var(--screen-height) - var(--target-height)) / 2);
@@ -52,4 +55,5 @@
 
 .terminal {
   background-color: black;
+  position: relative;
 }

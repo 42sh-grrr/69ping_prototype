@@ -1,0 +1,19 @@
+
+
+.terminal {
+  position: absolute;
+  inset: 0;
+
+  background: red;
+
+  overflow: hidden;
+
+  >* {
+    background: green;
+  }
+}
+
+.line {
+  --adj-y: calc(var(--pos-y) - var(--toolbar-height))
+  margin-right: calc((var(--ea) - var(--adj-y)) * tan(var(--angle-2)));
+}
