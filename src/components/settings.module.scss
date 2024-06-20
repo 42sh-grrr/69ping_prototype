@@ -11,12 +11,27 @@
 }
 
 .thing {
-  width: calc(min(800px, 100vw));
-  height: calc(min(500px, 100vh));
+  position: relative;
+
+  width: calc(min(800px, 100vw - 20px));
+  height: calc(min(500px, 100vh - 20px));
 
   background-color: var(--color-background);
 
   border-radius: 20px;
 
   padding: 20px;
+}
+
+.close-section {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.button {
+  cursor: pointer;
+  padding: 5px 10px;
+  background: gray;
+  border-radius: 5px;
 }

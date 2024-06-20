@@ -86,3 +86,11 @@ button {
 * {
   box-sizing: border-box;
 }
+
+label {
+  user-select: none;
+
+  >* {
+    user-select: default;
+  }
+}

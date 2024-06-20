@@ -10,34 +10,57 @@ export function useIsOpen(): [boolean, (val: boolean) => void] {
   return useAtom(isOpen);
 }
 
+function orNull(v: any): number | null {
+  if (typeof v === "number" && !isNaN(v))
+    return v;
+  if (typeof v === "string")
+    return orNull(Number(v));
+  return null;
+}
+
 function SettingsInner() {
   const [_open, setOpen] = useIsOpen();
   const [devmode, setDevMode] = useDevMode();
-  const [angle, setAngle] = React.useState<number>(+(window as any).customAngle);
+  const [angle, setAngle] = React.useState<number | null>((window as any).customAngle ?? null);
+
+  const setAngle2 = React.useCallback((v: any) => {
+    (window as any).customAngle = orNull(v);
+    setAngle(orNull(v));
+  }, []);
 
   const changeAngle = React.useCallback((el: React.ChangeEvent<HTMLInputElement>) => {
-    (window as any).customAngle = +el.target.value;
-    setAngle(+el.target.value);
+    setAngle2(el.target.value);
+  }, []);
+
+  const makeRotate = React.useCallback((el: React.ChangeEvent<HTMLInputElement>) => {
+    if (el.target.checked)
+      setAngle2(null);
+    else
+      setAngle2(0);
   }, []);
 
   return <div className={classes.container}>
     <div className={classes.thing}>
       <div style={{marginBottom: "10px"}}>
-        <label>
-          Angle: 
-          <input type="number" onChange={changeAngle} value={angle} />
+        <label style={{marginRight: "10px"}}>
+          <span style={{marginRight: "10px"}}>Angle</span>
+          <input type="number" onChange={changeAngle} value={angle ?? ""} />
         </label>
-      </div>
-      <div style={{marginBottom: "10px"}}>
-        <button type="button" onClick={() => setOpen(false)} style={{cursor: "pointer", padding: "5px", background: "gray"}}>
-          Close
-        </button>
+        <label>
+          Rotate
+          <input type="checkbox" onChange={makeRotate} checked={angle == null} />
+        </label>
       </div>
       <div>
         <label>
           Enable dev mode:
           <input type="checkbox" checked={devmode} onChange={e => setDevMode(e.target.checked)} />
         </label>
+      </div>
+      <div className={classes["close-section"]}>
+        <button className={classes["button"]} type="button" onClick={() => setOpen(false)}>
+          Close
+        </button>
       </div>
     </div>
   </div>;
