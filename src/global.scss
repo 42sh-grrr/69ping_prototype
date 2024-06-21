@@ -101,3 +101,8 @@ details {
     font-size: inherit;
   }
 }
+
+details, summary {
+  padding: 0;
+  margin: 0;
+}
