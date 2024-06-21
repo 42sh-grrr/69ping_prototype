@@ -8,7 +8,7 @@
     "noEmit": true,
     "noImplicitOverride": true,
     "jsxImportSource": "react",
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": ["src/**/*"]
 }
