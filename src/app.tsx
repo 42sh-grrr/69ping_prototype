@@ -8,6 +8,7 @@ import { Cat } from "./components/cat";
 import { Settings } from "./components/settings";
 import { atom, useAtom } from "jotai";
 import { Terminal } from "./components/terminal";
+import { ChatBot } from "./components/chatbot";
 
 const devMode = atom(localStorage.getItem("devmode") === "true");
 
@@ -66,5 +67,6 @@ export function App() {
       <ToolBar />
     </div>
     <Settings/>
+    <ChatBot />
   </>;
 }

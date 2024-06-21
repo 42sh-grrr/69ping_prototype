@@ -7,3 +7,8 @@ declare module "*.module.scss" {
   const foo: Foo;
   export = foo;
 }
+
+declare module "*.png" {
+  const foo: string;
+  export default foo;
+}
