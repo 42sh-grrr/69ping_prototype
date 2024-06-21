@@ -1,10 +1,16 @@
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import * as classes from "./code_editor.module.scss";
+import { atom, useAtom } from "jotai";
 
-export type Props = React.PropsWithChildren & {
-  code: null | string,
-  onInput?: (newCode: string) => void,
+export type OpenedFile = {
+  filePath: string,
+  fileContent: string,
 };
+export const openedFileAtom = atom<OpenedFile | null>(null);
+
+export function useOpenedFile() {
+  return useAtom(openedFileAtom);
+}
 
 function escapeHtml(html: string): string {
   var text = document.createTextNode(html);
@@ -13,16 +19,34 @@ function escapeHtml(html: string): string {
   return p.innerHTML;
 }
 
-export function CodeEditor(props: Props) {
-  const [code, setCode] = React.useState(props.code);
-  const codeRef = React.useRef<HTMLDivElement | null>(null);
-  const visualCodeRef = React.useRef<HTMLDivElement | null>(null);
+export function CodeEditor() {
+  const [ogCode, setOgCode] = useState<string | null>(null);
+  const [code, setCode] = useState<string | null>(null);
+  const codeRef = useRef<HTMLDivElement | null>(null);
+  const visualCodeRef = useRef<HTMLDivElement | null>(null);
+  const [openedFile] = useOpenedFile();
 
-  React.useEffect(() => {
-    setCode(props.code);
-  }, [props.code]);
+  useEffect(() => {
+    if (!openedFile) {
+      setOgCode(null);
+      return;
+    }
 
-  React.useEffect(() => {
+    console.log(openedFile);
+
+    const content = openedFile.fileContent;
+    const abort = new AbortController();
+    fetch(content, {
+      signal: abort.signal,
+    }).then(r => {
+      return r.text();
+    }).then(content => {
+      setOgCode(content);
+    }).catch(console.error);
+    return () => abort.abort();
+  }, [openedFile]);
+
+  useEffect(() => {
     const el = codeRef.current;
     if (!el)
       return;
@@ -37,7 +61,6 @@ export function CodeEditor(props: Props) {
           newCodeLines.push(e.innerText);
       });
       const newCode = newCodeLines.join("\n");
-      props.onInput?.(newCode);
       setCode(newCode);
     };
     el.addEventListener("input", input);
@@ -45,9 +68,9 @@ export function CodeEditor(props: Props) {
     return () => {
       el.removeEventListener("input", input);
     };
-  }, [codeRef.current, props.onInput]);
+  }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const el = visualCodeRef.current;
     if (el === null)
       return;
@@ -91,21 +114,22 @@ export function CodeEditor(props: Props) {
       if (isNaN(ln) || ln >= lines.length)
         queueMicrotask(() => child.remove());
     });
-  }, [visualCodeRef.current, code]);
+  }, [code]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const el = codeRef.current;
     if (el === null)
       return;
     console.log("reset the code");
 
-    if (props.code === null)
+    if (ogCode === null)
       return;
 
-    el.innerHTML = props.code.split("\n")
+    setCode(ogCode);
+    el.innerHTML = ogCode.split("\n")
       .map(code => `<pre class='${classes["line"]}'>${escapeHtml(code)}</pre>`)
       .join("");
-  }, [props.code]);
+  }, [ogCode]);
 
   return <div className={classes["code-editor"]}>
     <div className={classes["code-container"]}>

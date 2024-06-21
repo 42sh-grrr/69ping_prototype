@@ -94,3 +94,10 @@ label {
     user-select: default;
   }
 }
+
+details {
+  font-size: inherit;
+  summary {
+    font-size: inherit;
+  }
+}

@@ -19,8 +19,7 @@ export function App() {
   const appRef = React.useRef<HTMLDivElement|null>(null);
   const windowedRef = React.useRef<HTMLDivElement|null>(null);
 
-  const [devMode, setDevMode] = useDevMode();
-  const [code, setCode] = React.useState<string | null>(localStorage.getItem("code"));
+  const [devMode] = useDevMode();
 
   React.useEffect(() => {
     localStorage.setItem("devmode", ""+devMode);
@@ -30,26 +29,6 @@ export function App() {
     else
       document.body.classList.remove("devmode");
   }, [devMode]);
-
-  React.useEffect(() => {
-    if (code === null) {
-      const controller = new AbortController();
-      fetch(`https://gist.githubusercontent.com/saml/1252517/raw/c5117b197f9da41b9b50f56d4bf02ffa78e406c3/HelloWorldHttp.hs`, {
-        signal: controller.signal,
-      }).then(resp => resp.text()).then(code => {
-        localStorage.setItem("code", code);
-        setCode(code);
-      });
-
-      return () => {
-        controller.abort();
-      };
-    }
-  }, [code]);
-
-  const onInput = React.useCallback((newCode: string) => {
-    localStorage.setItem("code", newCode);
-  }, []);
 
   React.useEffect(() => {
     const appEl = appRef.current;
@@ -72,7 +51,7 @@ export function App() {
     <div className={classes.app} ref={appRef}>
       <FilePicker />
       <div className={classes.inner2}>
-        <CodeEditor code={code} onInput={onInput} />
+        <CodeEditor />
         <div className={classes.inner3}>
           <div className={classes.terminal}>
             <Terminal />

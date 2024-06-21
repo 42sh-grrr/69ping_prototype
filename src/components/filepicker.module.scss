@@ -11,29 +11,64 @@
   // text height + padding
   --rotcont-height: calc(1em + 2*var(--filepicker-padding));
 
+  details {
+    user-select: none;
+
+    margin-left: 20px;
+
+    >summary {
+      list-style: none;
+      margin-left: -20px;
+
+      display: flex;
+      align-items: start;
+      justify-content: start;
+    }
+
+    &:not([open]) {
+      >summary>.folder-open-icon {
+        display: none;
+      }
+    }
+
+    &[open] {
+      >summary>.folder-close-icon {
+        display: none;
+      }
+    }
+  }
+
   >ul {
     width: 100%;
 
     padding: var(--filepicker-gap);
   }
 
-  >ul>li {
-    width: 100%;
-
+  .node {
     cursor: pointer;
 
-    display: flex;
-    align-items: start;
-    justify-content: start;
+    padding: var(--filepicker-padding);
 
     background-color: rgba(255,255,255,0);
     transition: background-color 100ms;
 
-    padding: var(--filepicker-padding);
     border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
 
     &:hover {
       background-color: rgba(255,255,255,0.1);
     }
+
+    &.opened-node {
+      cursor: default;
+      background-color: rgba(100,100,255,0.25);
+    }
+  }
+
+  >ul>li {
+    width: 100%;
   }
 }
