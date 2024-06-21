@@ -3,13 +3,9 @@
 .terminal {
   position: absolute;
   inset: 0;
-
-  background: red;
-
   overflow: hidden;
 
   >* {
-    background: green;
   }
 }
 
