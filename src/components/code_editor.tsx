@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as classes from "./code_editor.module.scss";
 import { atom, useAtom } from "jotai";
+import { getHighlighter, Highlighter } from "shiki";
 
 export type OpenedFile = Readonly<{
   filePath: string,
@@ -20,12 +21,24 @@ function escapeHtml(html: string): string {
   return p.innerHTML;
 }
 
+const THEME_NAME = "dracula";
+
 export function CodeEditor() {
   const [ogCode, setOgCode] = useState<string | null>(null);
   const [code, setCode] = useState<string | null>(null);
   const codeRef = useRef<HTMLDivElement | null>(null);
   const visualCodeRef = useRef<HTMLDivElement | null>(null);
   const [openedFile, setOpenedFile] = useOpenedFile();
+  const [hlgter, setHlgter] = useState<null | Highlighter>();
+
+  useEffect(() => {
+    getHighlighter({
+      langs: ["haskell", "javascript", "html", "css"],
+      themes: [THEME_NAME]
+    }).then(h => {
+      setHlgter(h);
+    });
+  }, []);
 
   useEffect(() => {
     if (!openedFile) {
@@ -84,44 +97,24 @@ export function CodeEditor() {
 
     if (code === null)
       return;
+    if (!hlgter)
+      return;
 
-    const lines = code.split("\n");
-    lines.forEach((lineText, i) => {
-      const lineEl = el.querySelector(`&>.line-${i}`);
-      let newEl: HTMLPreElement;
+    let lang = "text";
+    if (openedFile?.fileContent.endsWith(".js"))
+      lang = "javascript";
+    if (openedFile?.fileContent.endsWith(".hs"))
+      lang = "haskell";
+    if (openedFile?.fileContent.endsWith(".html"))
+      lang = "html";
 
-      if (lineEl === null || !(lineEl instanceof HTMLPreElement)) {
-        newEl = document.createElement("pre") as HTMLPreElement;
-        newEl.classList.add(classes["line"], `line-${i}`);
-        newEl.setAttribute("data-line-number", i.toString());
-        el.appendChild(newEl);
-      }
-      else
-        newEl = lineEl;
-
-      const new_html = escapeHtml(lineText)
-        .replaceAll(/(--.*)$/g, "<span style='color: gray;'>$1</span>")
-        .replaceAll(/([0-9]+(?:\.[0-9]+)?)/g, "<span style='color: cyan;'>$1</span>")
-        .replaceAll(/( |\t|^)(\=|\$)( |\t|$)/g, "$1<span style='color: red;'>$2</span>$3")
-        .replaceAll(/( |\t|^)(import|module|let|where|as|do)( |\t|$)/g, "$1<span style='color: yellow;'>$2</span>$3")
-        .replaceAll(/( |\t|^)(\(|\)|\{|\})( |\t|$)/g, "$1<span style='color: #ADDFFF;'>$2</span>$3")
-        .replaceAll(/("(?:\\.|[^"\\])*")/g, "<span style='color: lime;'>$1</span>")
-      ;
-      if (new_html === newEl.innerHTML)
-        return;
-      newEl.innerHTML = new_html;
+    const html = hlgter.codeToHtml(code, {
+      lang,
+      theme: THEME_NAME,
     });
 
-    console.log("line count: ",lines.length);
-
-    el.childNodes.forEach(child => {
-      if (!(child instanceof HTMLPreElement))
-        return;
-      const ln = parseInt(child.getAttribute("data-line-number") ?? "nan");
-      if (isNaN(ln) || ln >= lines.length)
-        queueMicrotask(() => child.remove());
-    });
-  }, [code]);
+    el.innerHTML = html;
+  }, [code, hlgter,openedFile]);
 
   useEffect(() => {
     const el = codeRef.current;
