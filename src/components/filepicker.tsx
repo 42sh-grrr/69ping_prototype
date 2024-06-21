@@ -45,12 +45,20 @@ function FileEntry({ path, file }: { path: string, file: FileNode }) {
     setOpenedFile({
       fileContent: file.content,
       filePath: path,
+      dirty: false,
     });
   }, []);
 
-  return <li className={`${classes["node"]} ${openedFile?.filePath == path ? classes["opened-node"] : ""}`} onClick={click}>
-    {file.name}
-  </li>;
+  if (openedFile?.filePath == path) {
+    return <li className={`${classes["node"]} ${classes["opened-node"]}`}>
+      {file.name} {openedFile.dirty && <span className={classes["edited-node"]}>*</span>}
+    </li>;
+  }
+  else {
+    return <li className={`${classes["node"]}`} onClick={click}>
+      {file.name}
+    </li>;
+  }
 }
 
 function NodeEntry(props: {

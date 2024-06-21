@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import * as classes from "./code_editor.module.scss";
 import { atom, useAtom } from "jotai";
 
-export type OpenedFile = {
+export type OpenedFile = Readonly<{
   filePath: string,
   fileContent: string,
-};
+  dirty: boolean,
+}>;
 export const openedFileAtom = atom<OpenedFile | null>(null);
 
 export function useOpenedFile() {
@@ -24,7 +25,7 @@ export function CodeEditor() {
   const [code, setCode] = useState<string | null>(null);
   const codeRef = useRef<HTMLDivElement | null>(null);
   const visualCodeRef = useRef<HTMLDivElement | null>(null);
-  const [openedFile] = useOpenedFile();
+  const [openedFile, setOpenedFile] = useOpenedFile();
 
   useEffect(() => {
     if (!openedFile) {
@@ -44,7 +45,7 @@ export function CodeEditor() {
       setOgCode(content);
     }).catch(console.error);
     return () => abort.abort();
-  }, [openedFile]);
+  }, [openedFile?.filePath]);
 
   useEffect(() => {
     const el = codeRef.current;
@@ -62,13 +63,19 @@ export function CodeEditor() {
       });
       const newCode = newCodeLines.join("\n");
       setCode(newCode);
+      if (openedFile && !openedFile.dirty) {
+        setOpenedFile({
+          ...openedFile,
+          dirty: true,
+        });
+      }
     };
     el.addEventListener("input", input);
 
     return () => {
       el.removeEventListener("input", input);
     };
-  }, []);
+  }, [openedFile]);
 
   useEffect(() => {
     const el = visualCodeRef.current;
