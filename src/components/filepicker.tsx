@@ -51,7 +51,7 @@ function FileEntry({ path, file }: { path: string, file: FileNode }) {
 
   if (openedFile?.filePath == path) {
     return <li className={`${classes["node"]} ${classes["opened-node"]}`}>
-      {file.name} {openedFile.dirty && <span className={classes["edited-node"]}>*</span>}
+      {file.name} {openedFile.dirty && <span>*</span>}
     </li>;
   }
   else {
