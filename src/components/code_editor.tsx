@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as classes from "./code_editor.module.scss";
 import { atom, useAtom } from "jotai";
-import { getHighlighter, Highlighter } from "shiki";
+import { BundledTheme, getHighlighter, Highlighter, ThemeInput } from "shiki";
 
 export type OpenedFile = Readonly<{
   filePath: string,
@@ -21,7 +21,7 @@ function escapeHtml(html: string): string {
   return p.innerHTML;
 }
 
-const THEME_NAME = "dracula";
+const THEME_NAME: BundledTheme = "dracula";
 
 export function CodeEditor() {
   const [ogCode, setOgCode] = useState<string | null>(null);
