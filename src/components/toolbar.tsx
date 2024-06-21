@@ -3,6 +3,12 @@ import { createPortal } from "react-dom";
 import * as classes from "./toolbar.module.scss";
 import { useIsOpen } from "./settings";
 
+function Wordise(props: { children: string }) {
+  return <span>
+    {props.children.split("").map((c, i) => <span key={i} className={classes.letter}>{c}</span>)}
+  </span>;
+}
+
 function ToolBarElement(props: PropsWithChildren) {
   return <li className={classes["toolbar-el"]}>
     {props.children}
@@ -19,10 +25,10 @@ export function ToolBar() {
   return <div className={classes["tool-bar"]}>
     <ul>
       <li onClick={open}>
-        Configuration
+        <Wordise>Configuration</Wordise>
       </li>
       <ToolBarElement>
-        <summary>Fichier</summary>
+        <summary><Wordise>Fichier</Wordise></summary>
         <ul>
           <li>Open</li>
           <li>Close</li>
@@ -31,7 +37,7 @@ export function ToolBar() {
         </ul>
       </ToolBarElement>
       <ToolBarElement>
-        <summary>Edit</summary>
+        <summary><Wordise>Edit</Wordise></summary>
         <ul>
           <li>Copy</li>
           <li>Paste</li>
@@ -40,7 +46,7 @@ export function ToolBar() {
         </ul>
       </ToolBarElement>
       <ToolBarElement>
-        <summary>Bref</summary>
+        <summary><Wordise>Bref</Wordise></summary>
         <ul>
           <li>Copy</li>
           <li>Paste</li>
@@ -49,7 +55,7 @@ export function ToolBar() {
         </ul>
       </ToolBarElement>
       <ToolBarElement>
-        <summary>Autre chose</summary>
+        <summary><Wordise>Autre chose</Wordise></summary>
         <ul>
           <li>Copy</li>
           <li>Paste</li>

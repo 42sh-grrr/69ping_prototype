@@ -31,14 +31,14 @@
       &:hover {
         background-color: rgba(255,255,255,0.1);
       }
-
-      span.letter {
-        display: inline-block;
-        transform: rotate(var(--angle)) translateX(calc(cos(var(--angle-2)) * 3px));
-        width: calc(1ch + sin(var(--angle-2)) * 1ch);
-      }
     }
   }
+}
+
+.letter {
+  display: inline-block;
+  transform: rotate(var(--angle)) translateX(calc(cos(var(--angle-2)) * 3px));
+  width: calc(1ch + sin(var(--angle-2)) * 1ch);
 }
 
 .toolbar-el {
@@ -65,6 +65,21 @@
   }
   
   >ul {
+    transform: rotate(var(--angle));
+    transform-origin: top left;
+
+    position: relative;
+
+    &::after {
+      content: "bite";
+      display: block;
+
+      height: 200px;
+      width: 100%;
+      position: absolute;
+      top: -200px;
+    }
+
     position: absolute;
     top: 100%;
     left: 0;
@@ -72,7 +87,6 @@
     background-color: #444;
 
     border-radius: 2px;
-    overflow: hidden;
 
     display: flex;
 
