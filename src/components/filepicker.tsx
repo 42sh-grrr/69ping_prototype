@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { createRef, useCallback, useEffect, useMemo, useRef } from "react";
 import * as classes from "./filepicker.module.scss";
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
@@ -125,14 +125,33 @@ export function FilePicker() {
     ];
   }, []);
 
+  const filepickerRef = useRef<HTMLDivElement | null >(null);
+
+  useEffect(() => {
+    const filepickerEl = filepickerRef.current;
+    if (!filepickerEl)
+      return;
+
+    const updateSizes = () => {
+      filepickerEl.style.setProperty("--filepicker-width", `${filepickerEl.clientWidth}px`);
+      filepickerEl.style.setProperty("--filepicker-height", `calc(${filepickerEl.clientHeight}px - var(--toolbar-height))`);
+    };
+    const resize_observer = new ResizeObserver(updateSizes);
+    updateSizes();
+    resize_observer.observe(filepickerEl);
+
+    return () => resize_observer.disconnect();
+  }, []);
+
   return (
-    <div className={classes["file-picker"]}>
-      {rootNodes.map((n, i) => (
-        <ul>
-          <NodeEntry node={n} key={i} path={"/"+n.name} />        
-        </ul>
-      ))}
-        
+    <div className={classes["file-picker"]} ref={filepickerRef}>
+      <div className={classes["file-picker-inner"]}>
+        {rootNodes.map((n, i) => (
+          <ul>
+            <NodeEntry node={n} key={i} path={"/"+n.name} />        
+          </ul>
+        ))}
+      </div>  
     </div>
   );
 }

@@ -1,15 +1,30 @@
 
 .file-picker {
-  background-color: var(--color-file-picker);
-
   width: 250px;
+  padding-top: calc(var(--sin-a) * var(--screen-width) - var(--tan-a) * var(--filepicker-width));
+  padding-bottom: calc((var(--screen-height) * var(--cos-a)) - (var(--filepicker-width) / var(--tan-a)));
 
   --filepicker-gap: 0.5rem;
   --filepicker-padding: 0.5rem;
 
-  --rotcont-gap: var(--filepicker-gap);
-  // text height + padding
-  --rotcont-height: calc(1em + 2*var(--filepicker-padding));
+  background-color: red;
+
+  .file-picker-inner {
+    background-color: var(--color-file-picker);
+
+    width: 100%;
+    height: 100%;
+
+    >ul {
+      width: 100%;
+
+      padding: var(--filepicker-gap);
+    }
+
+    >ul>li {
+      width: 100%;
+    }
+  }
 
   details {
     user-select: none;
@@ -38,12 +53,6 @@
     }
   }
 
-  >ul {
-    width: 100%;
-
-    padding: var(--filepicker-gap);
-  }
-
   .node {
     cursor: pointer;
 
@@ -66,9 +75,5 @@
       cursor: default;
       background-color: rgba(100,100,255,0.25);
     }
-  }
-
-  >ul>li {
-    width: 100%;
   }
 }

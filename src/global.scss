@@ -16,6 +16,9 @@
   --border-radius: 5px;
   --angle: 60deg;
   --angle-2: calc(min(mod(var(--angle), 180deg), mod(-1 * var(--angle), 180deg)));
+  --cos-a: calc(cos(var(--angle)));
+  --sin-a: calc(sin(var(--angle)));
+  --tan-a: calc(var(--sin-a) / var(--cos-a));
 
   --chat-color-background: #333333;
   --chat-color-input-background: #222222;
