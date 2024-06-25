@@ -2,7 +2,10 @@
 .file-picker {
   width: 250px;
   padding-top: calc(var(--sin-a) * var(--screen-width) - var(--tan-a) * var(--filepicker-width));
-  padding-bottom: calc((var(--screen-height) * var(--cos-a)) - (var(--filepicker-width) / var(--tan-a)));
+  padding-bottom: calc(max(
+                          (var(--screen-height) * var(--cos-a)) - (var(--filepicker-width) / var(--tan-a)),
+                          (var(--filepicker-width) - var(--screen-height) * var(--sin-a)) * var(--tan-a)
+                  ));
 
   --filepicker-gap: 0.5rem;
   --filepicker-padding: 0.5rem;
