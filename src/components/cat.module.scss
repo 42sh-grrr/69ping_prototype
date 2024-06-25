@@ -13,15 +13,15 @@
   cursor: pointer;
 
   >* {
-    width: 100%;
-    height: 100%;
-    display: inline-block;
+    display: block;
     position: absolute;
-    inset: 0;
   }
 }
 
 .back {
+  width: 100%;
+  height: 100%;
+  inset: 0;
   object-fit: cover;
   filter: blur(10px);
   inset: -10px;
@@ -30,7 +30,40 @@
 }
 
 .front {
-  object-fit: contain;
+  --w: calc(var(--screen-width) - var(--cat-width));
+  --wx: calc(var(--w) * var(--cos-a));
+  --wy: calc(var(--w) * var(--sin-a));
+
+  --h: calc(var(--screen-height) - var(--cat-height));
+  --hx: calc(-var(--h) * var(--sin-a));
+  --hy: calc(var(--h) * var(--cos-a));
+
+  --d: calc(var(--screen-width) * var(--sin-a));
+  --dx: calc(var(--d) * var(--sin-a));
+  --dy: calc(-var(--d) * var(--cos-a));
+
+  --mx: calc(var(--wx) + var(--hx) + var(--dx));
+  --my: calc(var(--wy) + var(--hy) + var(--dy));
+
+  --beta: calc(var(--img-height) / var(--img-width));
+  --gamma: calc((var(--cos-a) - var(--beta) * var(--sin-a)) / (var(--sin-a) + var(--beta) * var(--cos-a)));
+
+  --yi: calc((var(--screen-width) - var(--mx)) / var(--gamma) + var(--my));
+  --xj: calc((var(--screen-height) - var(--my)) * var(--gamma) + var(--mx));
+
+  --x: min(var(--xj), var(--screen-width));
+  --y: min(var(--yi), var(--screen-height));
+
+  width: calc(var(--x) - var(--mx));
+  height: calc(var(--y) - var(--my));
+
+  left: 0;
+  top: 0;
+  
+  /* object-fit: contain; */
+
+  /* padding-bottom: calc(var(--screen-width) * var(--sin-a) - var(--cat-width) * var(--tan-a)); */
+  /* padding-right: 0px; */
 }
 
 .loading {

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import * as classes from "./cat.module.scss";
 
 const LINKS = [
@@ -11,9 +11,11 @@ const LINKS = [
 ]
 
 export function Cat() {
-  const [cat, setCat] = React.useState(null as string | null);
+  const [cat, setCat] = useState(null as string | null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
 
-  const fetchNewImage = React.useCallback(async (force: boolean = false) => {
+  const fetchNewImage = useCallback(async (force: boolean = false) => {
     if (!force && cat === null)
       return;
     setCat(null);
@@ -38,7 +40,7 @@ export function Cat() {
     document.head.appendChild(img);
   }, [cat]);
 
-  const playSound = React.useCallback(() => {
+  const playSound = useCallback(() => {
     try {
       const audio = new Audio(LINKS[Math.floor(Math.random() * LINKS.length)]);
       audio.play();
@@ -50,7 +52,7 @@ export function Cat() {
   }, []);
 
   let fetched = false;
-  React.useEffect(() => {
+  useEffect(() => {
     if (cat === null && fetched === false)
       fetchNewImage(true);
     fetched = true;
@@ -62,12 +64,42 @@ export function Cat() {
   }
   else {
     in_ = <>
-      <img className={classes.back} src={cat ?? ""} />
-      <img className={classes.front} src={cat ?? ""} onLoad={playSound}/>
+      <img className={classes.back} src={cat ?? ""} onLoad={() => {
+        const image = new Image();
+        image.src = cat;
+        setWidth(image.width);
+        setHeight(image.height);
+
+        playSound();
+      }}/>
+      <div className={classes.front} style={{
+        backgroundImage: `url(${cat ?? ""})`
+      }}/>
     </>;
   }
 
-  return <div className={classes.container} onClick={() => fetchNewImage()}>
+  const catRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const catEl = catRef.current;
+    if (!catEl)
+      return;
+
+    const updateSizes = () => {
+      catEl.style.setProperty("--cat-width", `${catEl.clientWidth}px`);
+      catEl.style.setProperty("--cat-height", `${catEl.clientHeight}px`);
+    };
+    const resize_observer = new ResizeObserver(updateSizes);
+    updateSizes();
+    resize_observer.observe(catEl);
+
+    return () => resize_observer.disconnect();
+  }, []);
+
+  return <div className={classes.container} ref={catRef} onClick={() => fetchNewImage()} style={{
+      "--img-width": `${width}px`,
+      "--img-height": `${height}px`
+    }}>
     {in_}
   </div>;
 }
