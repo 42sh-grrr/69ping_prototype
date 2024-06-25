@@ -1,9 +1,12 @@
 
 .file-picker {
   width: 250px;
-  padding-top: calc(var(--sin-a) * var(--screen-width) - var(--tan-a) * var(--filepicker-width));
+  padding-top: calc(max(
+                          var(--screen-width) * var(--sin-a) - var(--filepicker-width) * var(--tan-a),
+                          (var(--filepicker-width) - var(--screen-width) * var(--cos-a)) / var(--tan-a)
+                  ));
   padding-bottom: calc(max(
-                          (var(--screen-height) * var(--cos-a)) - (var(--filepicker-width) / var(--tan-a)),
+                          var(--screen-height) * var(--cos-a) - var(--filepicker-width) / var(--tan-a),
                           (var(--filepicker-width) - var(--screen-height) * var(--sin-a)) * var(--tan-a)
                   ));
 
@@ -78,5 +81,18 @@
       cursor: default;
       background-color: rgba(100,100,255,0.25);
     }
+  }
+}
+
+:global(.angle-inverted) {
+  .file-picker {
+    padding-bottom: calc(max(
+                            var(--screen-width) * var(--abs-sin-a) - var(--filepicker-width) * var(--abs-tan-a),
+                            (var(--filepicker-width) - var(--screen-width) * var(--cos-a)) / var(--abs-tan-a)
+                    ));
+    padding-top: calc(max(
+                            var(--screen-height) * var(--cos-a) - var(--filepicker-width) / var(--abs-tan-a),
+                            (var(--filepicker-width) - var(--screen-height) * var(--abs-sin-a)) * var(--abs-tan-a)
+                    ));
   }
 }

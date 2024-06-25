@@ -19,6 +19,9 @@
   --cos-a: calc(cos(var(--angle)));
   --sin-a: calc(sin(var(--angle)));
   --tan-a: calc(var(--sin-a) / var(--cos-a));
+  --abs-angle: calc(abs(var(--angle)));
+  --abs-sin-a: calc(sin(var(--abs-angle)));
+  --abs-tan-a: calc(var(--abs-sin-a) / var(--cos-a));
 
   --chat-color-background: #333333;
   --chat-color-input-background: #222222;

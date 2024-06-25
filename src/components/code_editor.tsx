@@ -131,20 +131,41 @@ export function CodeEditor() {
       .join("");
   }, [ogCode]);
 
-  return <div className={classes["code-editor"]}>
-    <div className={classes["code-container"]}>
-      <div
-        ref={visualCodeRef}
-        className={`${classes["the-visual-code"]}`}
-      />
-      <div
-        ref={codeRef}
-        className={`${classes["the-code"]}`}
-        contentEditable={true}
-        spellCheck={false}
-      />
-    </div>
-  </div>;
+  const codeeditorRef = useRef<HTMLDivElement | null>(null);
+
+  
+  useEffect(() => {
+    const codeeditorEl = codeeditorRef.current;
+    if (!codeeditorEl)
+      return;
+    
+    const updateSizes = () => {
+      codeeditorEl.style.setProperty("--codeeditor-width", `${codeeditorEl.clientWidth}px`);
+      codeeditorEl.style.setProperty("--codeeditor-height", `calc(${codeeditorEl.clientHeight}px - var(--toolbar-height))`);
+    };
+    const resize_observer = new ResizeObserver(updateSizes);
+    updateSizes();
+    resize_observer.observe(codeeditorEl);
+
+    return () => resize_observer.disconnect();
+  }, []);
+  
+  return <div className={classes["code-editor-outer"]} ref={codeeditorRef}>
+    <div className={classes["code-editor"]}>
+      <div className={classes["code-container"]}>
+        <div
+          ref={visualCodeRef}
+          className={`${classes["the-visual-code"]}`}
+        />
+        <div
+          ref={codeRef}
+          className={`${classes["the-code"]}`}
+          contentEditable={true}
+          spellCheck={false}
+        />
+      </div>
+    </div>;
+  </div>
   // {props.code.split("\n")
   //   .map((line, i) => <pre key={i} className={classes["line"] + " rotated-element"}>{line}</pre>)}
 }
