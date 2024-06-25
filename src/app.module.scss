@@ -8,6 +8,8 @@
 
   pointer-events: none; 
 
+  outline: thick solid white;
+
   >* {
     pointer-events: auto;
   }
