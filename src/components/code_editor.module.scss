@@ -3,12 +3,12 @@
   background-color: green;
 
   padding-top: calc(max(
-                          var(--screen-width) * var(--sin-a) - var(--codeeditor-width) * var(--tan-a),
-                          ((var(--codeeditor-width) + var(--filepicker-width)) - var(--screen-width) * var(--cos-a)) / var(--tan-a)
+                          var(--screen-width) * var(--sin-a) - var(--total-width) * var(--tan-a),
+                          (var(--total-width) - var(--screen-width) * var(--cos-a)) / var(--tan-a)
                   ));
   padding-bottom: calc(max(
-                          var(--screen-height) * var(--cos-a) - var(--codeeditor-width) / var(--tan-a),
-                          ((var(--codeeditor-width) + var(--filepicker-width)) - var(--screen-height) * var(--sin-a)) * var(--tan-a)
+                          var(--screen-height) * var(--cos-a) - var(--total-width) / var(--tan-a),
+                          (var(--total-width) - var(--screen-height) * var(--sin-a)) * var(--tan-a)
                   ));
 }
 
@@ -64,14 +64,14 @@
 }
 
 :global(.angle-inverted) {
-  .file-picker {
+  .code-editor-outer {
     padding-bottom: calc(max(
-                            var(--screen-width) * var(--abs-sin-a) - var(--filepicker-width) * var(--abs-tan-a),
-                            (var(--filepicker-width) - var(--screen-width) * var(--cos-a)) / var(--abs-tan-a)
+                            var(--screen-width) * var(--abs-sin-a) - var(--total-width) * var(--abs-tan-a),
+                            (var(--total-width) - var(--screen-width) * var(--cos-a)) / var(--abs-tan-a)
                     ));
     padding-top: calc(max(
-                            var(--screen-height) * var(--cos-a) - var(--filepicker-width) / var(--abs-tan-a),
-                            (var(--filepicker-width) - var(--screen-height) * var(--abs-sin-a)) * var(--abs-tan-a)
+                            var(--screen-height) * var(--cos-a) - var(--total-width) / var(--abs-tan-a),
+                            (var(--total-width) - var(--screen-height) * var(--abs-sin-a)) * var(--abs-tan-a)
                     ));
   }
 }

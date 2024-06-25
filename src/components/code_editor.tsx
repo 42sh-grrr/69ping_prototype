@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import * as classes from "./code_editor.module.scss";
 import { atom, useAtom } from "jotai";
 import { BundledTheme, getHighlighter, Highlighter, ThemeInput } from "shiki";
@@ -23,7 +23,7 @@ function escapeHtml(html: string): string {
 
 const THEME_NAME: BundledTheme = "dracula";
 
-export function CodeEditor() {
+export function CodeEditor(props: {filepickerEl: RefObject<HTMLElement>}) {
   const [ogCode, setOgCode] = useState<string | null>(null);
   const [code, setCode] = useState<string | null>(null);
   const codeRef = useRef<HTMLDivElement | null>(null);
@@ -140,12 +140,17 @@ export function CodeEditor() {
       return;
     
     const updateSizes = () => {
+      codeeditorEl.style.setProperty("--total-width", `calc(${props.filepickerEl.current?.clientWidth ?? 0}px + ${codeeditorEl.clientWidth}px)`);
       codeeditorEl.style.setProperty("--codeeditor-width", `${codeeditorEl.clientWidth}px`);
       codeeditorEl.style.setProperty("--codeeditor-height", `calc(${codeeditorEl.clientHeight}px - var(--toolbar-height))`);
+      console.log(getComputedStyle(codeeditorEl));
     };
     const resize_observer = new ResizeObserver(updateSizes);
     updateSizes();
     resize_observer.observe(codeeditorEl);
+    if (props.filepickerEl.current) {
+      resize_observer.observe(props.filepickerEl.current);
+    }
 
     return () => resize_observer.disconnect();
   }, []);

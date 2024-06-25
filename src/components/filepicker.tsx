@@ -1,4 +1,4 @@
-import { createRef, useCallback, useEffect, useMemo, useRef } from "react";
+import { RefObject, createRef, useCallback, useEffect, useMemo, useRef } from "react";
 import * as classes from "./filepicker.module.scss";
 import FolderIcon from '@mui/icons-material/Folder';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
@@ -74,7 +74,7 @@ function NodeEntry(props: {
   }
 }
 
-export function FilePicker() {
+export function FilePicker(props: {myRef: RefObject<HTMLDivElement>}) {
   const rootNodes: Node[] = useMemo(() => {
     return [
       {
@@ -125,7 +125,7 @@ export function FilePicker() {
     ];
   }, []);
 
-  const filepickerRef = useRef<HTMLDivElement | null >(null);
+  const filepickerRef = props.myRef;
 
   useEffect(() => {
     const filepickerEl = filepickerRef.current;

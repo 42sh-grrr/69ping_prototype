@@ -19,6 +19,7 @@ export function useDevMode(): [boolean, (val: boolean) => void] {
 export function App() {
   const appRef = React.useRef<HTMLDivElement|null>(null);
   const windowedRef = React.useRef<HTMLDivElement|null>(null);
+  const filepickerRef = React.useRef<HTMLDivElement|null>(null);
 
   const [devMode] = useDevMode();
 
@@ -50,9 +51,9 @@ export function App() {
 
   return <>
     <div className={classes.app} ref={appRef}>
-      <FilePicker />
+      <FilePicker myRef={filepickerRef} />
       <div className={classes.inner2}>
-        <CodeEditor />
+        <CodeEditor filepickerEl={filepickerRef} />
         <div className={classes.inner3}>
           <div className={classes.terminal}>
             <Terminal />
