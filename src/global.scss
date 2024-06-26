@@ -19,7 +19,7 @@
   --cos-a: calc(cos(var(--angle)));
   --sin-a: calc(sin(var(--angle)));
   --tan-a: calc(var(--sin-a) / var(--cos-a));
-  --abs-angle: calc(abs(var(--angle)));
+  --abs-angle: calc(max(var(--angle), -1 * var(--angle)));
   --abs-sin-a: calc(sin(var(--abs-angle)));
   --abs-tan-a: calc(var(--abs-sin-a) / var(--cos-a));
 
@@ -30,7 +30,7 @@
   --font-family: comic_sans;
   --font-family-monospace: comic_sans_monospace;
 
-  --toolbar-height: 2em;
+  --toolbar-height: 30px;
 }
 
 body.counter-rotate {
