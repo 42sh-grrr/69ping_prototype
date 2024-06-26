@@ -45,33 +45,6 @@ export function Cat() {
     try {
       const audio = new Audio(LINKS[Math.floor(Math.random() * LINKS.length)]);
       audio.play();
-      setTimeout(() => {
-        if (frontRef.current != null) {
-          console.log("--w: " + getComputedStyle(frontRef.current).getPropertyValue("--w"));
-          console.log("--wx: " + getComputedStyle(frontRef.current).getPropertyValue("--wx"));
-          console.log("--wy: " + getComputedStyle(frontRef.current).getPropertyValue("--wy"));
-
-          console.log("--h: " + getComputedStyle(frontRef.current).getPropertyValue("--h"));
-          console.log("--hx: " + getComputedStyle(frontRef.current).getPropertyValue("--hx"));
-          console.log("--hy: " + getComputedStyle(frontRef.current).getPropertyValue("--hy"));
-
-          console.log("--d: " + getComputedStyle(frontRef.current).getPropertyValue("--d"));
-          console.log("--dx: " + getComputedStyle(frontRef.current).getPropertyValue("--dx"));
-          console.log("--dy: " + getComputedStyle(frontRef.current).getPropertyValue("--dy"));
-
-          console.log("--mx: " + getComputedStyle(frontRef.current).getPropertyValue("--mx"));
-          console.log("--my: " + getComputedStyle(frontRef.current).getPropertyValue("--my"));
-
-          console.log("--beta: " + getComputedStyle(frontRef.current).getPropertyValue("--beta"));
-          console.log("--gamma: " + getComputedStyle(frontRef.current).getPropertyValue("--gamma"));
-
-          console.log("--yi: " + getComputedStyle(frontRef.current).getPropertyValue("--yi"));
-          console.log("--xj: " + getComputedStyle(frontRef.current).getPropertyValue("--xj"));
-
-          console.log("--x: " + getComputedStyle(frontRef.current).getPropertyValue("--x"));
-          console.log("--y: " + getComputedStyle(frontRef.current).getPropertyValue("--y"));
-        }
-      }, 1000);
     }
     catch {
       console.log("Could not play sound");

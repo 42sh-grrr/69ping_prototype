@@ -45,7 +45,6 @@
   --mx: calc(var(--wx) + var(--hx) + var(--dx));
   --my: calc(var(--wy) + var(--hy) + var(--dy));
 
-  /* --beta: calc(var(--img-height) / var(--img-width)); */
   --gamma: calc((var(--cos-a) - var(--beta) * var(--sin-a)) / (var(--sin-a) + var(--beta) * var(--cos-a)));
 
   --xj: calc((var(--screen-height) - var(--my)) * var(--gamma) + var(--mx));
@@ -83,4 +82,53 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+:global(.angle-inverted) {
+  .front {
+    --w: calc(var(--target-width) - var(--cat-width));
+    --wx: calc(var(--w) * var(--cos-a));
+    --wy: calc(-1 * var(--w) * var(--abs-sin-a));
+
+    --h: calc(var(--target-height) - var(--cat-height));
+    --hx: calc(var(--h) * var(--abs-sin-a));
+    --hy: calc(var(--h) * var(--cos-a));
+
+    --d: calc(var(--screen-height) * var(--abs-sin-a));
+    --dx: calc(-1 * var(--d) * var(--cos-a));
+    --dy: calc(var(--d) * var(--abs-sin-a));
+
+    --mx: calc(var(--wx) + var(--hx) + var(--dx));
+    --my: calc(var(--wy) + var(--hy) + var(--dy));
+
+    --gamma: calc((var(--cos-a) + var(--beta) * var(--abs-sin-a)) / (var(--beta) * var(--cos-a) - var(--abs-sin-a)));
+
+    --yl: calc((var(--screen-width) - var(--mx)) / var(--gamma) + var(--my));
+    --xp: calc((var(--screen-height) - var(--my)) * var(--abs-tan-a) + var(--mx));
+    --yq: calc((var(--screen-width) - var(--xp)) * -1 * var(--abs-tan-a) + var(--screen-height));
+
+    --x: var(--screen-width);
+    --y: min(var(--yl), var(--yq));
+
+    /* --nx: calc(var(--x) * var(--cos-a) - var(--y) * var(--abs-sin-a)); */
+    --ny: calc(var(--y) * var(--cos-a) + var(--x) * var(--abs-sin-a));
+
+    /* --sx: calc(var(--nx) + var(--d)); */
+    --sy: var(--ny);
+
+    /* --width: calc(var(--sx) - var(--w)); */
+    --height: calc(var(--sy) - var(--h));
+
+    width: calc(var(--height) / var(--beta));
+    height: var(--height);
+
+    left: 0;
+    top: 0;
+  
+    /* object-fit: contain; */
+    background-size: contain;
+
+    /* padding-bottom: calc(var(--screen-width) * var(--sin-a) - var(--cat-width) * var(--tan-a)); */
+    /* padding-right: 0px; */
+  }
 }
