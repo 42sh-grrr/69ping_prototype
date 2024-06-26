@@ -48,20 +48,26 @@
   /* --beta: calc(var(--img-height) / var(--img-width)); */
   --gamma: calc((var(--cos-a) - var(--beta) * var(--sin-a)) / (var(--sin-a) + var(--beta) * var(--cos-a)));
 
-  --yi: calc((var(--screen-width) - var(--mx)) / var(--gamma) + var(--my));
   --xj: calc((var(--screen-height) - var(--my)) * var(--gamma) + var(--mx));
+  --yk: calc((var(--screen-width) - var(--mx)) * var(--tan-a) + var(--my));
+  --xi: calc((var(--screen-height) - var(--yk)) * -1 * var(--tan-a) + var(--screen-width));
 
-  --x: min(var(--xj), var(--screen-width));
-  --y: min(var(--yi), var(--screen-height));
+  /* --x: min(var(--xj), var(--screen-width)); */
+  /* --y: min(var(--yi), var(--screen-height)); */
+
+  --x: min(var(--xi), var(--xj));
+  --y: var(--screen-height);
 
   --nx: calc(var(--x) * var(--cos-a) + var(--y) * var(--sin-a));
-  --ny: calc(var(--y) * var(--cos-a) - var(--x) * var(--sin-a));
+  /* --ny: calc(var(--y) * var(--cos-a) - var(--x) * var(--sin-a)); */
 
   --sx: var(--nx);
-  --sy: calc(var(--ny) + var(--d));
+  /* --sy: calc(var(--ny) + var(--d)); */
 
-  width: calc(var(--sx) - var(--w));
-  height: calc(var(--sy) - var(--h));
+  --width: calc(var(--sx) - var(--w));
+
+  width: var(--width);
+  height: calc(var(--width) * var(--beta));
 
   left: 0;
   top: 0;
